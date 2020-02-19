@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import {
   TouchableOpacity,
   Text,
-  View
+  View, 
+  Image
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {shouldUpdate} from '../../../component-updater';
-
+import OvulationIcon from '../../../../../../app/resources/image/heart_dark.png';
+import FertileIcon from '../../../../../../app/resources/image/heart_light.png';
 import styleConstructor from './style';
 
 class Day extends Component {
@@ -55,6 +57,8 @@ class Day extends Component {
     }
     const isDisabled = typeof marking.disabled !== 'undefined' ? marking.disabled : this.props.state === 'disabled';
     let dot;
+    let icon;
+
     if (marking.marked) {
       dotStyle.push(this.style.visibleDot);
       if (isDisabled) {
@@ -66,6 +70,34 @@ class Day extends Component {
       dot = (<View style={dotStyle}/>);
     }
 
+    if (marking.isSpotting) {
+      containerStyle.push({backgroundColor: '#917B90'})
+      textStyle.push({color: 'white'})
+    }
+
+    if (marking.isLightFlow) {
+      containerStyle.push({backgroundColor: '#AA6FA5'})
+      textStyle.push({color: 'white'})
+    }
+
+    if (marking.isMooderateFlow) {
+      containerStyle.push({backgroundColor: '#994A85'})
+      textStyle.push({color: 'white'})
+    }
+
+    if (marking.isHeavyFlow) {
+      containerStyle.push({backgroundColor: '#4E2447'})
+      textStyle.push({color: 'white'})
+    }
+
+    if(marking.isOvulation){
+      icon = (<Image source={OvulationIcon} style={{position: 'absolute', top: 3, right: 3}}/>);
+    }
+
+    if(marking.isFertile){
+      icon = (<Image source={FertileIcon} style={{position: 'absolute', top: 3, right: 3}}/>);
+    }
+
     if (marking.selected) {
       containerStyle.push(this.style.selected);
       if (marking.selectedColor) {
@@ -75,7 +107,8 @@ class Day extends Component {
       textStyle.push(this.style.selectedText);
     } else if (isDisabled) {
       textStyle.push(this.style.disabledText);
-    } else if (this.props.state === 'today') {
+    } else 
+    if (this.props.state === 'today') {
       containerStyle.push(this.style.today);
       textStyle.push(this.style.todayText);
       dotStyle.push(this.style.todayDot);
@@ -92,6 +125,7 @@ class Day extends Component {
       >
         <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
         {dot}
+        {icon}
       </TouchableOpacity>
     );
   }
