@@ -1,4 +1,4 @@
-import {StyleSheet, Platform} from 'react-native';
+import {StyleSheet, Platform, Dimensions, Image} from 'react-native';
 import * as defaultStyle from '../../../style';
 
 const STYLESHEET_ID = 'stylesheet.day.basic';
@@ -7,9 +7,13 @@ export default function styleConstructor(theme={}) {
   const appStyle = {...defaultStyle, ...theme};
   return StyleSheet.create({
     base: {
-      width: 32,
-      height: 32,
-      alignItems: 'center'
+      width: Dimensions.get('window').width/7,
+      height: Dimensions.get('window').width/7,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#E7CAE4',
+      borderWidth: 0.5,
+      borderColor: 'rgb(137, 137, 137)'
     },
     text: {
       marginTop: Platform.OS === 'android' ? 4 : 6,
@@ -25,11 +29,11 @@ export default function styleConstructor(theme={}) {
     },
     selected: {
       backgroundColor: appStyle.selectedDayBackgroundColor,
-      borderRadius: 16
+      // borderRadius: 16
     },
     today: {
       backgroundColor: appStyle.todayBackgroundColor,
-      borderRadius: 16
+      // borderRadius: 16
     },
     todayText: {
       color: appStyle.todayTextColor

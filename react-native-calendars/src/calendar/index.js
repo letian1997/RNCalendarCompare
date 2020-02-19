@@ -165,9 +165,11 @@ class Calendar extends Component {
       state = 'today';
     }
 
-    if (!dateutils.sameMonth(day, this.state.currentMonth) && this.props.hideExtraDays) {
-      return (<View key={id} style={{flex: 1}}/>);
-    }
+    // if (!dateutils.sameMonth(day, this.state.currentMonth) && this.props.hideExtraDays) {
+    //   return (<View key={id} style={{flex: 1}}/>);
+    // }
+
+   
 
     const DayComp = this.getDayComponent();
     const date = day.getDate();
